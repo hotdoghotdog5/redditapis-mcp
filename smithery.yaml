@@ -1,0 +1,38 @@
+# Smithery runtime config for redditapis-mcp.
+# https://smithery.ai/docs/build/project-config
+startCommand:
+  type: stdio
+  configSchema:
+    type: object
+    required:
+      - redditapisKey
+    properties:
+      redditapisKey:
+        type: string
+        title: RedditAPIs API key
+        description: Your redditapis.com API key. Get one at https://www.redditapis.com
+      redditapisBaseUrl:
+        type: string
+        title: API base URL
+        description: Optional. Defaults to https://api.redditapis.com
+        default: https://api.redditapis.com
+      maxResultBytes:
+        type: integer
+        title: Result size ceiling (bytes)
+        description: Optional. Ceiling on the text of one read result, so a batch of reads cannot overflow the model's context. Default 16000 (~4000 tokens).
+        default: 16000
+      skipTools:
+        type: string
+        title: Tools to leave unregistered
+        description: 'Optional. Comma list of tool-name patterns to omit, e.g. reddit_monitor_*,reddit_feedback_*. Each registered tool costs its description in the model context on every turn.'
+  commandFunction: |-
+    (config) => ({
+      command: 'node',
+      args: ['src/index.js'],
+      env: {
+        REDDITAPIS_KEY: config.redditapisKey,
+        ...(config.redditapisBaseUrl ? { REDDITAPIS_BASE_URL: config.redditapisBaseUrl } : {}),
+        ...(config.maxResultBytes ? { REDDITAPIS_MCP_MAX_BYTES: String(config.maxResultBytes) } : {}),
+        ...(config.skipTools ? { REDDITAPIS_MCP_SKIP_TOOLS: config.skipTools } : {}),
+      },
+    })

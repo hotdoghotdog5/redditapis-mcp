@@ -1,0 +1,35 @@
+# What `mcpb pack` must NOT put inside the .mcpb bundle.
+#
+# WHY THIS FILE EXISTS. The bundle is a SECOND public distribution surface, on
+# top of the npm tarball, and the two have different default contents. npm ships
+# only the `files` allowlist in package.json (src, README, LICENSE, CHANGELOG,
+# server.json), but `mcpb pack` starts from the whole working directory, so
+# everything the npm allowlist quietly excluded gets swept in unless it is
+# named here.
+
+# Local session + agent scratch. Never ships anywhere.
+.claude/
+.tenant
+
+# Build-time and test-time only. Not needed to RUN the server, and these are
+# the files that carry foreign identity strings.
+test/
+scripts/
+
+# Registry descriptors are read from the GitHub repo by the directories that
+# want them; they do nothing inside a bundle.
+server.json
+smithery.yaml
+glama.json
+
+# Lockfile is for building this repo, not for running the bundled server.
+package-lock.json
+
+# Never, under any circumstances.
+.env
+.env.*
+*.log
+.DS_Store
+
+# Bundles must not nest inside bundles.
+*.mcpb

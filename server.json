@@ -1,0 +1,56 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.redditapis/redditapis-mcp",
+  "description": "Reddit API as MCP tools: search, subreddits, posts, comments, users, monitors, webhooks, feedback.",
+  "title": "RedditAPIs",
+  "version": "0.11.0",
+  "websiteUrl": "https://www.redditapis.com",
+  "repository": {
+    "url": "https://github.com/redditapis/redditapis-mcp",
+    "source": "github"
+  },
+  "packages": [
+    {
+      "registryType": "npm",
+      "identifier": "redditapis-mcp",
+      "version": "0.11.0",
+      "transport": {
+        "type": "stdio"
+      },
+      "environmentVariables": [
+        {
+          "name": "REDDITAPIS_KEY",
+          "description": "Your redditapis.com API key. Get one at https://www.redditapis.com",
+          "isRequired": true,
+          "isSecret": true
+        },
+        {
+          "name": "REDDITAPIS_MCP_MAX_BYTES",
+          "description": "Optional. Ceiling on the text of one read result, in bytes (default 16000, about 4000 tokens).",
+          "isRequired": false
+        },
+        {
+          "name": "REDDITAPIS_MCP_DEFAULT_LIMIT",
+          "description": "Optional. limit sent for a read that did not ask for one (default 10; 0 leaves the endpoint default).",
+          "isRequired": false
+        },
+        {
+          "name": "REDDITAPIS_MCP_SKIP_TOOLS",
+          "description": "Optional. Comma list of tool-name patterns to leave unregistered, e.g. reddit_monitor_*,reddit_feedback_*",
+          "isRequired": false
+        },
+        {
+          "name": "REDDITAPIS_MCP_RAW",
+          "description": "Optional. 1 returns the upstream body verbatim instead of the compacted one.",
+          "isRequired": false
+        }
+      ]
+    }
+  ],
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://api.redditapis.com/mcp"
+    }
+  ]
+}

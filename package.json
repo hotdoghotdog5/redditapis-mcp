@@ -1,0 +1,61 @@
+{
+  "name": "redditapis-mcp",
+  "version": "0.11.0",
+  "mcpName": "io.github.redditapis/redditapis-mcp",
+  "description": "Official MCP server for redditapis.com. Search Reddit posts, comments, communities, users and media; read subreddits, comment trees, top posts and profiles; create and manage monitors and webhooks. Native tools for Claude, Cursor and any MCP client.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/redditapis/redditapis-mcp.git"
+  },
+  "type": "module",
+  "bin": {
+    "reddit-mcp": "src/index.js",
+    "redditapis-mcp": "src/index.js"
+  },
+  "main": "src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./server": "./src/server.js",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "src",
+    "README.md",
+    "LICENSE",
+    "CHANGELOG.md",
+    "smithery.yaml"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "start": "node src/index.js",
+    "check": "node --check src/index.js && node --check src/tools.js && node --check src/feedback.js && node --check src/server.js && node --check src/watch.js && node --check src/watch-text.js && node --check src/provenance.js && node --check src/playbooks.js && node --check src/compact.js",
+    "test": "node test/tools.test.mjs && node test/compact.test.mjs && node test/watch.test.mjs && node test/watch-invariants.test.mjs && node test/provenance.test.mjs && node test/playbooks.test.mjs && node test/description-compliance.test.mjs && node test/inline-credentials.test.mjs && node test/feedback.test.mjs && node test/index-lasterror.test.mjs && node test/scannable-without-key.test.mjs && node test/per-caller-state.test.mjs && node test/paywall.test.mjs && node test/remote-host.test.mjs",
+    "prepublishOnly": "node scripts/prepublish-tenant-check.mjs",
+    "postpublish": "node scripts/registry-drift.mjs --publish",
+    "check:registry-drift": "node scripts/registry-drift.mjs",
+    "measure:context": "node scripts/measure-context.mjs"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.29.0",
+    "zod": "^3.23.8 || ^4.0.0"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "reddit",
+    "reddit-api",
+    "claude",
+    "cursor",
+    "redditapis",
+    "modelcontextprotocol",
+    "ai-tools"
+  ],
+  "author": "redditapis.com",
+  "license": "MIT",
+  "homepage": "https://www.redditapis.com",
+  "bugs": {
+    "url": "https://github.com/redditapis/redditapis-mcp/issues"
+  }
+}

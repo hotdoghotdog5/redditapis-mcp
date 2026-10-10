@@ -1,0 +1,28 @@
+{
+  "_comment": "GENERATED, do not hand-edit. Constraints extracted from the JSON Schema that apps/mcp/server.json declares in its own $schema field. Refresh with: node scripts/refresh-registry-constraints.mjs",
+  "source_schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "fetched_utc": "2026-09-06T13:41:46Z",
+  "required": [
+    "name",
+    "description",
+    "version"
+  ],
+  "fields": {
+    "description": {
+      "minLength": 1,
+      "maxLength": 100
+    },
+    "name": {
+      "minLength": 3,
+      "maxLength": 200,
+      "pattern": "^[a-zA-Z0-9.-]+/[a-zA-Z0-9._-]+$"
+    },
+    "title": {
+      "minLength": 1,
+      "maxLength": 100
+    },
+    "version": {
+      "maxLength": 255
+    }
+  }
+}
